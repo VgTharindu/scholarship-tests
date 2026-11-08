@@ -33,7 +33,7 @@ export default function Teacher({ exit }) {
         <button className="w sm" onClick={exit}>
           ◀ ආපසු
         </button>
-        <h1>සර්ගේ පිවිසුම</h1>
+        <h1>චාමර සර්ගේ පිවිසුම</h1>
         <div className="card">
           <input
             placeholder="Email"
@@ -124,7 +124,7 @@ function Dash({ out }) {
   return (
     <div>
       <div className="bar row">
-        <span>👨‍🏫 සර්ගේ Dashboard</span>
+        <span>QUIZ MASTER 5 · චාමර සර්</span>
         <span onClick={out} style={{ fontSize: 14 }}>
           ඉවත් වන්න
         </span>
