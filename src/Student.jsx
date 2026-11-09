@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { sb } from "./supabase";
 import { dt, fmt, fmtH } from "./util";
+import Logo from "./Logo";
 
 export default function Student({ exit }) {
   const [me, setMe] = useState(
@@ -45,7 +46,10 @@ function Login({ done, exit }) {
       <button className="w sm" onClick={exit}>
         ◀ ආපසු
       </button>
-      <h1>ශිෂ්‍යත්ව අභ්‍යාස පරීක්ෂණ</h1>
+      <div className="row" style={{ flex: "none", gap: 12, margin: "12px 0" }}>
+        <Logo size={52} />
+        <h1 style={{ flex: "none", margin: 0 }}>QUIZ MASTER 5</h1>
+      </div>
       <div className="card">
         <b>1. ඔබේ නම ලියන්න</b>
         <input
