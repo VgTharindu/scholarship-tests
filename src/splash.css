@@ -1,0 +1,200 @@
+/* Loading animation (splash screen). කාල රේඛාව:
+   0.0s  සුදු රවුම මතුවෙනවා
+   0.4s  "5" ඉලක්කම ඇඳෙනවා
+   1.5s  තොප්පිය උඩ ඉඳන් වැටිලා පනිනවා
+   2.2s  ✓ කවය මතුවෙලා ✓ ලකුණ ඇඳෙනවා
+   2.7s  "QUIZ MASTER" අකුරෙන් අකුර උඩට එනවා, අන්තිමට "5" පනිනවා
+   3.9s  tagline එක මතුවෙනවා
+   4.5s  මුළු තිරයම උඩට ගිහින් home page එක පෙනෙනවා (5.0s වෙද්දී අවසන්) */
+.qm-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+  background: radial-gradient(circle at 50% 40%, #2a62cf 0%, #1a4bae 45%, #123a8c 100%);
+}
+.qm-splash.out {
+  animation: sp-leave 0.5s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+@keyframes sp-leave {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* logo එක තියෙන සුදු රවුම */
+.sp-ring {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.12), 0 0 0 22px rgba(255, 255, 255, 0.06);
+  animation: sp-ring 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  margin-bottom: 18px;
+}
+@keyframes sp-ring {
+  from {
+    transform: scale(0);
+  }
+}
+
+/* "5" ඇඳීම: dasharray 1 = ඉරේ මුළු දිග. dashoffset 1 සිට 0 දක්වා අඩු වෙද්දී ඉර ටිකෙන් ටික පෙනෙනවා */
+.qm-splash .lg-five-out,
+.qm-splash .lg-five {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sp-draw 1s ease-in-out 0.4s forwards;
+}
+.qm-splash .lg-five {
+  animation-delay: 0.55s;
+}
+@keyframes sp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* තොප්පිය වැටීම */
+.qm-splash .lg-cap {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: sp-cap 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s forwards;
+}
+@keyframes sp-cap {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) rotate(-14deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ✓ කවය: transform-box නිසා කවය තමන්ගේම මැද සිට විශාල වෙනවා */
+.qm-splash .lg-check {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  animation: sp-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+}
+.qm-splash .lg-check path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sp-draw 0.4s ease-out 2.5s forwards;
+}
+@keyframes sp-pop {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* නම: හැම අකුරකටම --i අංකය අනුව ටිකක් පරක්කු වෙලා උඩට එනවා */
+.sp-name {
+  margin: 0;
+  font-family: "Fredoka", "Noto Sans Sinhala", sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 10vw, 64px);
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.sp-name span,
+.sp-name em {
+  display: inline-block;
+  opacity: 0;
+  animation: sp-rise 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(2.7s + var(--i) * 0.08s);
+}
+.sp-name em {
+  margin-left: 0.25em;
+  font-style: normal;
+  color: #f7931e;
+  animation-name: sp-bounce;
+  animation-duration: 0.65s;
+}
+@keyframes sp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sp-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sp-tag {
+  margin: 4px 0 0;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #dce7ff;
+  opacity: 0;
+  animation: sp-fade 0.5s ease-out 3.9s forwards;
+}
+@keyframes sp-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* පහළ load වෙන තීරුව: තත්පර 4.5කින් වමේ සිට දකුණට පිරෙනවා */
+.sp-bar {
+  position: absolute;
+  bottom: calc(40px + env(safe-area-inset-bottom));
+  width: min(220px, 60vw);
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+.sp-bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 3px;
+  background: #f7931e;
+  transform-origin: left;
+  animation: sp-load 4.5s linear forwards;
+}
+@keyframes sp-load {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Animations අඩු කරන්න settings දාපු අයට සියල්ල එවෙලේම පෙන්වනවා */
+@media (prefers-reduced-motion: reduce) {
+  .qm-splash *,
+  .qm-splash.out {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+  }
+}
